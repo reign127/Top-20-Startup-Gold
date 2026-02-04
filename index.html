@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 20 Startup Opportunity Apps</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ RESET & ROOT ═══════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#050508;
+  --deep:#0a0a10;
+  --card:#111118;
+  --card-hover:#161620;
+  --white:#f0f0f2;
+  --gray:#8a8a96;
+  --gray-light:#b8b8c0;
+  --diamond-white:#ffffff;
+  --diamond-gray:#c4c4cc;
+  --diamond-black:#888894;
+  --accent-white:rgba(255,255,255,0.92);
+  --accent-gray:rgba(160,160,172,0.85);
+  --accent-dim:rgba(100,100,115,0.7);
+  --tag-bg:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.07);
+}
+
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Rajdhani',sans-serif;
+  background:var(--black);
+  color:#ffffff;
+  display:flex;
+  flex-direction:column;
+  user-select:none;
+  font-size:16px;
+}
+
+/* ═══════════ STARFIELD BG ═══════════ */
+#starfield{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;
+}
+.star{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  animation:twinkle var(--dur) ease-in-out infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:var(--base-op)}
+  50%{opacity:1;box-shadow:0 0 var(--glow)px var(--glow-half)px rgba(255,255,255,0.5)}
+}
+
+/* ═══════════ HEADER ═══════════ */
+header{
+  position:relative;z-index:2;
+  padding:1rem 2rem;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(10,10,16,0.95),rgba(10,10,16,0.7));
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;gap:1.2rem;
+  flex-shrink:0;
+}
+.header-icon{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,#fff 25%,#6e6e78 50%,#1a1a22 75%);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+header h1{
+  font-family:'Playfair Display',serif;
+  font-size:1.35rem;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  background:linear-gradient(90deg,var(--diamond-white),var(--diamond-gray),var(--diamond-white));
+  background-size:200% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
+@keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.header-sub{
+  margin-left:auto;
+  font-size:0.72rem;
+  letter-spacing:1px;
+  color:var(--gray);
+  text-transform:uppercase;
+}
+
+/* ═══════════ LAYOUT ═══════════ */
+.layout{
+  position:relative;z-index:2;
+  display:flex;flex:1;overflow:hidden;
+}
+
+/* ═══════════ LEFT SIDEBAR ═══════════ */
+.sidebar{
+  width:300px;flex-shrink:0;
+  overflow-y:auto;
+  border-right:1px solid var(--border);
+  background:rgba(10,10,16,0.88);
+  backdrop-filter:blur(8px);
+  padding:0.6rem 0.5rem;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:2px}
+
+.menu-btn{
+  display:flex;align-items:center;gap:0.7rem;
+  width:100%;padding:0.62rem 0.75rem;
+  background:transparent;border:none;border-radius:8px;
+  cursor:pointer;
+  transition:background 0.25s,transform 0.2s;
+  text-align:left;
+}
+.menu-btn:hover{background:rgba(255,255,255,0.05);transform:translateX(3px)}
+.menu-btn.active{background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.12)}
+.menu-btn.active .btn-name{color:#fff}
+
+.btn-rank{
+  font-family:'Playfair Display',serif;
+  font-size:0.82rem;font-weight:700;
+  width:28px;text-align:right;flex-shrink:0;
+}
+/* Diamond motif cycling: white / gray / black per group of ~7 */
+.rank-white{
+  color:#ffffff;
+  text-shadow:0 0 8px rgba(255,255,255,0.6);
+  animation:shimmerRank 3s linear infinite;
+}
+.rank-gray{
+  color:#d8d8de;
+  text-shadow:0 0 6px rgba(216,216,222,0.4);
+}
+.rank-black{
+  color:#b0b0bc;
+  text-shadow:0 0 4px rgba(176,176,188,0.3);
+}
+
+@keyframes shimmerRank{
+  0%,100%{opacity:0.95}
+  50%{opacity:1;text-shadow:0 0 12px rgba(255,255,255,0.8)}
+}
+
+.btn-icon{
+  width:32px;height:32px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;background:var(--tag-bg);
+}
+.btn-icon svg{width:18px;height:18px}
+
+.btn-name{
+  font-size:0.95rem;font-weight:600;letter-spacing:0.4px;
+  color:#ffffff;
+  text-shadow:0 0 6px rgba(255,255,255,0.4);
+  animation:shimmerName 4s ease-in-out infinite;
+  transition:color 0.2s;
+}
+
+@keyframes shimmerName{
+  0%,100%{color:#ffffff;text-shadow:0 0 6px rgba(255,255,255,0.4)}
+  50%{color:#f8f8ff;text-shadow:0 0 10px rgba(255,255,255,0.7)}
+}
+.btn-cat{
+  font-size:0.68rem;letter-spacing:0.9px;
+  color:#c8c8d2;text-transform:uppercase;
+  margin-left:auto;flex-shrink:0;
+}
+
+/* ═══════════ RIGHT PANEL ═══════════ */
+.panel{
+  flex:1;overflow-y:auto;
+  padding:2rem 2.2rem;
+  background:rgba(5,5,8,0.6);
+}
+.panel::-webkit-scrollbar{width:5px}
+.panel::-webkit-scrollbar-track{background:transparent}
+.panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
+
+/* Panel content (animated in) */
+.panel-content{animation:panelIn 0.38s cubic-bezier(.16,1,.3,1) both}
+@keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── App Hero ── */
+.app-hero{
+  display:flex;align-items:flex-start;gap:1.4rem;
+  margin-bottom:1.6rem;
+}
+.app-logo-wrap{
+  width:72px;height:72px;border-radius:16px;
+  background:var(--card);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.app-logo-wrap svg{width:40px;height:40px}
+.app-hero-text h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.75rem;font-weight:700;
+  letter-spacing:0.8px;
+  background:linear-gradient(90deg,#fff 0%,#8a8a96 60%,#fff 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 3.5s linear infinite;
+}
+.app-hero-text .app-meta{
+  font-size:0.86rem;
+  color:#d4d4dc;
+  letter-spacing:0.7px;
+  margin-top:0.25rem;
+}
+
+/* ── ROI Strip ── */
+.roi-strip{
+  display:flex;gap:1rem;margin-bottom:1.6rem;flex-wrap:wrap;
+}
+.roi-card{
+  flex:1;min-width:120px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:0.8rem 1rem;
+}
+.roi-card .roi-label{
+  font-size:0.68rem;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  color:#b8b8c4;
+  margin-bottom:0.22rem;
+}
+.roi-card .roi-val{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:700;
+}
+.roi-val.white{color:#fff}
+.roi-val.gray{color:var(--diamond-gray)}
+.roi-val.dim{color:rgba(90,90,100,0.95)}
+
+/* ── Section Titles ── */
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:0.9rem;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#e0e0e8;
+  margin-bottom:0.7rem;
+  margin-top:1.5rem;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.section-title::before{
+  content:'';width:3px;height:14px;border-radius:2px;
+  background:linear-gradient(180deg,#fff,#6e6e78,#1a1a22);
+}
+.section-title:first-of-type{margin-top:0}
+
+/* ── Flaws / Complaints List ── */
+.complaint-list{list-style:none;display:flex;flex-direction:column;gap:0.55rem}
+.complaint-item{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:0.7rem 0.85rem;
+  display:flex;gap:0.7rem;align-items:flex-start;
+}
+.complaint-item .c-icon{
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;background:var(--tag-bg);
+}
+.complaint-item .c-icon svg{width:12px;height:12px}
+.complaint-item .c-text{
+  font-size:0.92rem;
+  color:#ffffff;
+  line-height:1.5;
+  font-weight:400;
+  text-shadow:0 0 4px rgba(255,255,255,0.2);
+}
+.complaint-item .c-source{
+  font-size:0.66rem;
+  letter-spacing:0.9px;
+  text-transform:uppercase;
+  color:#b0b0bc;
+  margin-top:0.18rem;
+  display:flex;
+  gap:0.5rem;
+  flex-wrap:wrap;
+}
+.c-source span{
+  background:rgba(255,255,255,0.08);
+  padding:2px 7px;
+  border-radius:3px;
+  color:#c8c8d2;
+}
+
+/* ── Opportunity Box ── */
+.opportunity-box{
+  background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:12px;padding:1.2rem 1.3rem;margin-top:0.7rem;
+}
+.opportunity-box .opp-title{
+  font-family:'Playfair Display',serif;
+  font-size:0.95rem;font-weight:600;
+  color:#fff;margin-bottom:0.5rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.opportunity-box .opp-title svg{width:16px;height:16px;color:#fff}
+.opportunity-box .opp-desc{
+  font-size:0.94rem;
+  color:#ffffff;
+  line-height:1.65;
+  text-shadow:0 0 4px rgba(255,255,255,0.2);
+}
+.opp-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.7rem}
+.opp-tag{
+  font-size:0.68rem;
+  letter-spacing:0.8px;
+  text-transform:uppercase;
+  padding:4px 10px;
+  border-radius:4px;
+  border:1px solid rgba(255,255,255,0.18);
+  color:#e4e4ec;
+  background:rgba(255,255,255,0.04);
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:760px){
+  .layout{flex-direction:column}
+  .sidebar{width:100%;max-height:220px;flex-direction:row;flex-wrap:wrap;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:2px;padding:0.4rem;}
+  .menu-btn{padding:0.45rem 0.5rem}
+  .btn-cat{display:none}
+  .panel{padding:1.2rem 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- STARFIELD -->
+<div id="starfield"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-icon"></div>
+  <div>
+    <h1>◆ Startup Opportunity Intel ◆</h1>
+  </div>
+  <span class="header-sub">Top 20 High-ROI Apps · Exploitable Gaps · Feb 2026</span>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar"></aside>
+  <!-- PANEL -->
+  <main class="panel" id="panel"></main>
+</div>
+
+<script>
+/* ═══════════ STAR GENERATION ═══════════ */
+(function(){
+  const sf=document.getElementById('starfield');
+  for(let i=0;i<220;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const size=Math.random()<0.92?1+(Math.random()*1.2):2.2+(Math.random()*1.5);
+    const baseOp=0.15+Math.random()*0.5;
+    const dur=2+Math.random()*4;
+    const glow=size>2?3:2;
+    s.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${dur}s;--base-op:${baseOp};--glow:${glow};--glow-half:${glow/2}px;animation-delay:-${Math.random()*dur}s`;
+    sf.appendChild(s);
+  }
+})();
+
+/* ═══════════ APP DATA (researched) ═══════════ */
+const apps=[
+{id:'canva',name:'Canva',cat:'Design',roi:'$12.8B',users:'190M+',founded:'2013',
+ logo:'<svg viewBox="0 0 24 24" fill="#00C4B0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>',
+ flaws:[
+  {text:'Video Editor 2.0 rollout caused massive regression — audio unsyncs, ghost footage in exports, layers jump randomly. Took creators days instead of hours.',sources:['Reddit','X','Meta']},
+  {text:'New UI hides brand colors behind extra clicks; "change all" feature auto-disappears. Workflow disrupted for professionals.',sources:['Reddit','LinkedIn']},
+  {text:'Subscription cancellation nearly impossible — no phone support, AI-only responses, unauthorized charges reported by hundreds.',sources:['Reddit','X','Meta']},
+  {text:'Free tier gutted over time; premium assets locked aggressively, making the free version nearly useless for real work.',sources:['Reddit','LinkedIn','Meta']}
+ ],
+ opportunity:'Canva is hemorrhaging video-editing users who want simplicity. Build a lightweight, mobile-first video editor with reliable multi-track timeline, honest free tier, and one-click export. Target the 50M+ creators fleeing Canva\'s buggy Video Editor 2.0. Subscription must be transparent — no dark patterns.'
+},
+{id:'capcut',name:'CapCut',cat:'Video Edit',roi:'~$500B*',users:'200M+',founded:'2018',
+ logo:'<svg viewBox="0 0 24 24" fill="#010101"><circle cx="12" cy="12" r="10" fill="#fff"/><path d="M10 8l5 4-5 4V8z" fill="#000"/></svg>',
+ flaws:[
+  {text:'Aggressive paywall creep — features that were free suddenly locked behind Pro. Users feel "tricked" mid-project.',sources:['Reddit','X','Meta']},
+  {text:'Projects deleted or corrupted in glitches; drafts become blank or unreadable. Exported videos freeze on playback.',sources:['Reddit','Meta']},
+  {text:'ByteDance ToS grants royalty-free worldwide license on user content — a deal-breaker for branded / client work.',sources:['Reddit','LinkedIn']},
+  {text:'Notification spam floods the app daily; auto-captions inaccurate for non-English languages.',sources:['Reddit','X']}
+ ],
+ opportunity:'Massive gap for a creator-first video editor that respects content ownership, keeps core features permanently free, and works flawlessly offline. Target professionals doing branded content who can\'t risk ByteDance\'s ToS. Privacy-first positioning is a powerful differentiator.'
+},
+{id:'adobe',name:'Adobe Acrobat',cat:'PDF Tools',roi:'$180B',users:'500M+',founded:'1982',
+ logo:'<svg viewBox="0 0 24 24" fill="#EC1C24"><path d="M21.5 2h-19C1.67 2 1 2.67 1 3.5v17c0 .83.67 1.5 1.5 1.5h19c.83 0 1.5-.67 1.5-1.5v-17c0-.83-.67-1.5-1.5-1.5z"/><text x="5" y="16" font-size="9" fill="#fff" font-weight="bold">Aa</text></svg>',
+ flaws:[
+  {text:'New "Acrobat experience" UI relocated every tool users relied on. Navigation requires 4+ clicks for basic actions that were one-click before.',sources:['Reddit','LinkedIn','Meta']},
+  {text:'Massive performance lag on large PDFs; frequent crashes when editing forms or rotating pages. Multi-tab usage freezes the app.',sources:['Reddit','X']},
+  {text:'Most expensive PDF editor on the market ($240+/yr Pro) with no proportional improvement in reliability.',sources:['Reddit','LinkedIn']},
+  {text:'No integration with Apple, Google, or Microsoft ecosystems natively — forces extra steps for common workflows.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'Adobe\'s PDF monopoly is cracking. Build a lightweight, fast PDF editor with intuitive UI that does signing, forms, editing, and merging in one clean interface. Target SMBs and solopreneurs priced out of Adobe. Free tier with generous limits + cheap Pro under $50/yr.'
+},
+{id:'grammarly',name:'Grammarly',cat:'Writing AI',roi:'$1B raised',users:'40M daily',founded:'2008',
+ logo:'<svg viewBox="0 0 24 24" fill="#15A852"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-3-3 1.41-1.41L10 14.17l5.59-5.59L17 10l-7 7z"/></svg>',
+ flaws:[
+  {text:'Price doubled to $144/yr with no real feature upgrade — many users cancel rather than pay. Free tier extremely limited.',sources:['Reddit','LinkedIn']},
+  {text:'Extension breaks in many apps (Notion desktop, some Word Online versions) — forces copy-paste workflow.',sources:['Reddit','Meta']},
+  {text:'Over-corrects casual/creative writing; flags intentional style choices, frustrating content creators and marketers.',sources:['Reddit','X','LinkedIn']},
+  {text:'No refund policy despite auto-renewals; support is AI-only with no human escalation path.',sources:['Reddit','Meta']}
+ ],
+ opportunity:'Build a writing assistant that works natively inside Notion, Docs, and CMS platforms. Offer a generous free tier, respect creative voice (don\'t flag stylistic choices), and price at half of Grammarly. Target content creators, freelancers, and non-native English speakers.'
+},
+{id:'notion',name:'Notion',cat:'Productivity',roi:'$12B',users:'100M+',founded:'2016',
+ logo:'<svg viewBox="0 0 24 24" fill="#fff"><rect x="3" y="3" width="18" height="18" rx="3" fill="#000"/><rect x="6" y="7" width="12" height="1.5" fill="#fff"/><rect x="6" y="10" width="9" height="1.5" fill="#fff"/><rect x="6" y="13" width="11" height="1.5" fill="#fff"/></svg>',
+ flaws:[
+  {text:'Block-based structure breaks third-party spell checkers — each block treated as separate text. No word count feature.',sources:['Reddit','LinkedIn']},
+  {text:'Slow load times on large databases/pages — page switching can take several seconds on complex workspaces.',sources:['Reddit','X']},
+  {text:'No true offline mode; cloud-only design means productivity stops without internet.',sources:['Reddit','LinkedIn']},
+  {text:'Overwhelming for new users despite "simplicity" promise; steep learning curve for databases and automations.',sources:['Reddit','Meta']}
+ ],
+ opportunity:'Build a notes + project management app with genuine offline-first architecture, native spell checking, and sub-second page loads. Target remote teams and solopreneurs who need reliability without cloud dependency. Clean onboarding that takes <2 min.'
+},
+{id:'zoom',name:'Zoom',cat:'Video Calls',roi:'$22B',users:'300M+',founded:'2011',
+ logo:'<svg viewBox="0 0 24 24" fill="#2D8CFF"><path d="M22.5 6.5l-5 3V6c0-.55-.45-1-1-1h-13c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h13c.55 0 1-.45 1-1v-3l5 3V6.5z"/></svg>',
+ flaws:[
+  {text:'Audio processing hijacks system sound — muffles Spotify, YouTube, and all background audio during meetings.',sources:['Reddit','X','Meta']},
+  {text:'Noise cancellation too aggressive; filters out music, screen-shared audio, and even some speech in busy environments.',sources:['Reddit','LinkedIn']},
+  {text:'Bloated desktop app — high CPU/RAM usage, slow to launch. Multiple tabs open simultaneously crash the system.',sources:['Reddit','X']},
+  {text:'UI cluttered with AI features nobody asked for; core meeting controls buried under layers of menus.',sources:['LinkedIn','Reddit']}
+ ],
+ opportunity:'Build a lightweight, battery-friendly video meeting tool that doesn\'t mess with system audio, has minimal CPU footprint, and keeps the UI dead simple. Target freelancers, small teams, and creators who also stream/play music during calls. Sub-100MB app size.'
+},
+{id:'slack',name:'Slack',cat:'Messaging',roi:'$27.7B*',users:'200M+',founded:'2013',
+ logo:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="#36C5F0"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="#2EB67D"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="#ECB22E"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="#F2919F"/></svg>',
+ flaws:[
+  {text:'Notification overload is #1 complaint — mentions buried in high-traffic channels, no smart priority ranking.',sources:['Reddit','LinkedIn','Meta']},
+  {text:'Search is weak; finding a message from 6 months ago in a busy channel is nearly impossible without exact keywords.',sources:['Reddit','LinkedIn']},
+  {text:'No way to bulk-clear DM history; leaving a channel works but DMs pile up with no cleanup option.',sources:['Reddit','X']},
+  {text:'Huddle noise cancellation malfunctions across the org — not a device issue, a platform bug.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'Build a team chat tool with AI-powered message prioritization that surfaces what actually matters. Smart search across all history. Clean DM management. Target mid-size teams (50-500 people) frustrated by Slack\'s noise. Position as "the chat that respects your time."'
+},
+{id:'figma',name:'Figma',cat:'UI Design',roi:'$12.5B',users:'20M+',founded:'2012',
+ logo:'<svg viewBox="0 0 24 24"><rect x="7" y="2" width="5" height="7" rx="2.5" fill="#F24822"/><rect x="12" y="2" width="5" height="7" rx="2.5" fill="#1695EB"/><rect x="7" y="9" width="5" height="7" rx="2.5" fill="#0CB67D"/><rect x="12" y="9" width="5" height="5" rx="2.5" fill="#F24822"/><rect x="7" y="16" width="5" height="6" rx="2.5" fill="#A259FF"/></svg>',
+ flaws:[
+  {text:'Offline sync issues — files randomly show "offline" even with solid internet; changes lost during disconnects.',sources:['Reddit','LinkedIn']},
+  {text:'UI navigation reshuffled silently in updates — files move between teams/projects with no warning.',sources:['Reddit','X']},
+  {text:'Per-seat pricing explodes cost for large teams; no meaningful discount tiers for startups.',sources:['LinkedIn','Reddit']},
+  {text:'Heavy memory usage on complex files; browser tab crashes on dense component libraries.',sources:['Reddit','X']}
+ ],
+ opportunity:'Build a collaborative design tool with bulletproof offline sync, stable file organization, and a startup-friendly pricing model (team plans under $10/seat). Target design teams at early-stage companies who can\'t afford Figma\'s per-seat costs at scale.'
+},
+{id:'trello',name:'Trello',cat:'Project Mgmt',roi:'$1B+*',users:'100M+',founded:'2011',
+ logo:'<svg viewBox="0 0 24 24" fill="#0052CC"><rect x="2" y="2" width="20" height="20" rx="3"/><rect x="4" y="5" width="5" height="14" rx="1" fill="#fff"/><rect x="10" y="5" width="5" height="10" rx="1" fill="#fff"/><rect x="16" y="5" width="3" height="7" rx="1" fill="#fff"/></svg>',
+ flaws:[
+  {text:'Kanban-only view is limiting — no timeline, Gantt, or calendar view for projects with dependencies.',sources:['Reddit','LinkedIn']},
+  {text:'Power-Ups (integrations) are confusing and often require separate paid plans within Trello itself.',sources:['Reddit','Meta']},
+  {text:'No native time tracking or workload management — critical features missing for anything beyond simple task lists.',sources:['Reddit','LinkedIn']},
+  {text:'Mobile app buggy on Android; cards don\'t load reliably, drag-and-drop broken on smaller screens.',sources:['Reddit','X']}
+ ],
+ opportunity:'Build a visual project management tool that combines Kanban boards WITH timeline/Gantt views natively, includes time tracking, and works flawlessly on mobile. Target freelancers and small agencies who outgrow Trello\'s simplicity but can\'t justify enterprise PM tools.'
+},
+{id:'evernote',name:'Evernote',cat:'Note Taking',roi:'~$1B',users:'50M+',founded:'2004',
+ logo:'<svg viewBox="0 0 24 24" fill="#78B900"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/><rect x="8" y="7" width="8" height="1.5" fill="#fff"/><rect x="8" y="10" width="6" height="1.5" fill="#fff"/><rect x="8" y="13" width="7" height="1.5" fill="#fff"/></svg>',
+ flaws:[
+  {text:'Desktop app feels outdated; UI hasn\'t seen a meaningful redesign in years, looks clunky vs modern alternatives.',sources:['Reddit','LinkedIn']},
+  {text:'Limited integrations — doesn\'t talk well to modern tools like Notion, Figma, or project management suites.',sources:['Reddit','X']},
+  {text:'Free tier is too restrictive (5 notebooks, upload limits); forces premium almost immediately.',sources:['Reddit','Meta']},
+  {text:'Sync delays between devices — notes updated on mobile take minutes to appear on desktop.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'Build a modern note-taking app with instant cross-device sync, generous free tier (unlimited notebooks), and deep integrations with Notion, Figma, Google Docs. Make it feel like 2026, not 2010. Target knowledge workers and students switching away from aging note apps.'
+},
+{id:'spotify',name:'Spotify',cat:'Audio/Music',roi:'$62B',users:'675M+',founded:'2006',
+ logo:'<svg viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>',
+ flaws:[
+  {text:'Wrapped 2024 was an AI disaster — genre labels like "Cottagecore Trap" were hallucinated; personality slides meaningless.',sources:['Reddit','X','Meta']},
+  {text:'Android offline playback silently broken for months; songs go silent mid-play with no fix.',sources:['Reddit','Meta']},
+  {text:'Podcast discovery algorithm is poor — surfaces irrelevant shows while users can\'t find niche content they want.',sources:['Reddit','LinkedIn']},
+  {text:'Artist payouts remain abysmally low (~$0.003/stream); independent creators vocal about exploitation.',sources:['Reddit','X','LinkedIn']}
+ ],
+ opportunity:'Build a podcast-first audio platform with genuinely smart discovery, fair creator payouts (revenue share model), and reliable offline mode. Target indie podcasters and niche audio content creators underserved by Spotify\'s algorithm. Lean into community curation.'
+},
+{id:'asana',name:'Asana',cat:'Project Mgmt',roi:'$10.3B',users:'100M+',founded:'2008',
+ logo:'<svg viewBox="0 0 24 24" fill="#F24822"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="13" r="2.5" fill="#fff"/><circle cx="16" cy="13" r="2.5" fill="#fff"/><circle cx="12" cy="8" r="2.5" fill="#fff"/></svg>',
+ flaws:[
+  {text:'Premium required for Timeline, custom fields, automations — the features that make it actually useful for real projects.',sources:['Reddit','LinkedIn']},
+  {text:'Mobile app laggy; task updates don\'t reflect in real-time, causing confusion in async team workflows.',sources:['Reddit','X']},
+  {text:'No native time tracking — requires a third-party integration that adds cost and complexity.',sources:['Reddit','LinkedIn']},
+  {text:'Over-engineered for small teams; onboarding overwhelms solo users and tiny startups.',sources:['Reddit','Meta']}
+ ],
+ opportunity:'Build a project management tool that gives Timeline + time tracking + automations on the FREE tier. Target solo founders and teams of 2-10 who need real project visibility without enterprise pricing. Dead-simple onboarding under 60 seconds.'
+},
+{id:'adobe_premiere',name:'Adobe Premiere',cat:'Video Edit',roi:'$180B*',users:'50M+',founded:'1991',
+ logo:'<svg viewBox="0 0 24 24"><rect x="1" y="2" width="22" height="20" rx="2" fill="#1A1A2E"/><text x="4" y="16" font-size="11" fill="#9999DD" font-weight="bold">Pr</text></svg>',
+ flaws:[
+  {text:'Bloated install — Creative Cloud requires 25GB+ and installs dozens of background processes.',sources:['Reddit','LinkedIn']},
+  {text:'Subscription-only; no perpetual license. Cancelling loses access to all projects.',sources:['Reddit','X','Meta']},
+  {text:'Crashes on large timelines; RAM management poor without expensive hardware.',sources:['Reddit','X']},
+  {text:'Steep learning curve; tutorials are fragmented and outdated across Adobe\'s ecosystem.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'DaVinci Resolve is already proving free pro tools can work. Build a cloud-based video editor that handles 4K without a beefy local machine, bundles color grading + audio mixing, and offers a permanent free tier with no watermark. Target YouTubers and indie filmmakers.'
+},
+{id:'zoom_alt',name:'Microsoft Teams',cat:'Collaboration',roi:'$2.5T*',users:'320M+',founded:'2017',
+ logo:'<svg viewBox="0 0 24 24" fill="#00A4EF"><path d="M19.5 3h-4.5l-3 4H8.5L5.5 3H1.5C.67 3 0 3.67 0 4.5v15c0 .83.67 1.5 1.5 1.5h18c.83 0 1.5-.67 1.5-1.5v-15c0-.83-.67-1.5-1.5-1.5z"/><circle cx="19" cy="6" r="3" fill="#FFC000"/></svg>',
+ flaws:[
+  {text:'UI is cluttered and confusing — meetings, chat, files, and channels all fight for attention in one interface.',sources:['Reddit','LinkedIn','Meta']},
+  {text:'Resource-heavy; runs slow on mid-range laptops, eats battery during long video calls.',sources:['Reddit','X']},
+  {text:'Notification system is broken — desktop pings don\'t match what actually needs attention.',sources:['Reddit','LinkedIn']},
+  {text:'Difficult to set up for non-IT users; onboarding is a maze of admin settings.',sources:['Reddit','Meta']}
+ ],
+ opportunity:'Teams is forced on corporate users, not chosen. Build a lightweight collaboration suite that combines chat + video + file sharing in an interface that makes sense. Target remote-first companies and freelancers who want one tool that doesn\'t drain their laptop.'
+},
+{id:'adobe_photoshop',name:'Photoshop',cat:'Image Edit',roi:'$180B*',users:'35M+',founded:'1990',
+ logo:'<svg viewBox="0 0 24 24"><rect x="1" y="2" width="22" height="20" rx="2" fill="#1A1A2E"/><text x="3.5" y="16" font-size="11" fill="#34C4DB" font-weight="bold">Ps</text></svg>',
+ flaws:[
+  {text:'Subscription-only pricing ($23/mo) with no perpetual option alienates hobbyists and one-time users.',sources:['Reddit','X','Meta']},
+  {text:'Mobile version (iPad) is severely limited vs desktop — can\'t justify the price for mobile-only users.',sources:['Reddit','LinkedIn']},
+  {text:'Massive system requirements; runs poorly on anything under a high-end laptop.',sources:['Reddit','X']},
+  {text:'AI Generative Fill produces inconsistent results — sometimes brilliant, often unusable.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'Canva already targets simple design. Go one layer deeper: build a mobile-first photo editor with pro-level tools (layers, masks, RAW editing) that runs smoothly on mid-range phones. Free with optional one-time purchase (<$30) unlocking everything. Target phone photographers and social creators.'
+},
+{id:'audacity',name:'Audacity',cat:'Audio Edit',roi:'Open Source',users:'30M+',founded:'2000',
+ logo:'<svg viewBox="0 0 24 24" fill="#1a5276"><path d="M12 2L4 8v8l8 6 8-6V8l-8-6z"/><line x1="8" y1="9" x2="8" y2="15" stroke="#fff" stroke-width="1.5"/><line x1="10" y1="7" x2="10" y2="17" stroke="#fff" stroke-width="1.5"/><line x1="12" y1="5" x2="12" y2="19" stroke="#fff" stroke-width="1.5"/><line x1="14" y1="8" x2="14" y2="16" stroke="#fff" stroke-width="1.5"/><line x1="16" y1="10" x2="16" y2="14" stroke="#fff" stroke-width="1.5"/></svg>',
+ flaws:[
+  {text:'UI is stuck in 2005 — looks and feels ancient; no modern dark mode, poor touch/tablet support.',sources:['Reddit','X']},
+  {text:'No cloud sync; everything local-only. Collaboration requires manual file passing.',sources:['Reddit','LinkedIn']},
+  {text:'Podcast-specific features missing — no chapter markers, show notes export, or RSS integration.',sources:['Reddit','Meta']},
+  {text:'Crashes on large audio files (1hr+); undo history is unreliable after heavy edits.',sources:['Reddit','X']}
+ ],
+ opportunity:'The podcast editing market is booming ($4B+). Build a modern, cloud-synced audio editor built specifically for podcasters — with chapter markers, AI-powered noise removal, one-click publishing, and a gorgeous UI. Target the 100M+ podcasters worldwide.'
+},
+{id:'todoist',name:'Todoist',cat:'Task Mgmt',roi:'~$500M',users:'40M+',founded:'2007',
+ logo:'<svg viewBox="0 0 24 24" fill="#DB4035"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ flaws:[
+  {text:'Natural language parsing fails on complex task descriptions; misinterprets dates and priorities.',sources:['Reddit','LinkedIn']},
+  {text:'No built-in calendar view — forces users to use Google Calendar separately and manually sync.',sources:['Reddit','X']},
+  {text:'Recurring task logic is rigid; can\'t handle "every weekday except holidays" type rules.',sources:['Reddit','Meta']},
+  {text:'Premium ($99/yr) required for filters and labels — the exact features that make task management work.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'Build a task manager with genuinely smart NLP that understands "next Tuesday unless it\'s a holiday", a built-in calendar, and flexible recurrence rules — all on the free tier. Target productivity enthusiasts and ADHD users who need a system that just works.'
+},
+{id:'github',name:'GitHub',cat:'Dev Tools',roi:'$7.5B*',users:'100M+',founded:'2008',
+ logo:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>',
+ flaws:[
+  {text:'Actions CI/CD pricing punishes open-source projects; free minutes run out fast on public repos.',sources:['Reddit','LinkedIn']},
+  {text:'Code review UX is clunky for large PRs — comments get buried, hard to track resolution status.',sources:['Reddit','X']},
+  {text:'Search across repos is weak; finding code snippets across an org takes multiple attempts.',sources:['Reddit','LinkedIn']},
+  {text:'UI bloat — dashboard is cluttered with feeds, achievements, sponsors that slow down the core workflow.',sources:['Reddit','X']}
+ ],
+ opportunity:'GitLab already proved an alternative can work. Build a developer platform with genuinely unlimited CI/CD for open source, smarter PR review workflows, and a clean dashboard that surfaces what matters. Target indie developers and open-source foundations underserved by GitHub\'s pricing.'
+},
+{id:'canva_alt',name:'Google Drive',cat:'File Storage',roi:'$2.5T*',users:'1.8B+',founded:'2012',
+ logo:'<svg viewBox="0 0 24 24"><path d="M12 2L4.5 15h15L12 2z" fill="#FBBC04"/><path d="M4.5 15L1 21h22l-3-6H4.5z" fill="#34A853"/><path d="M12 2l4 6.5L12 15l-4-6.5L12 2z" fill="#EA4335"/><path d="M19.5 15L16 8.5 12 15h7.5z" fill="#4285F4"/></svg>',
+ flaws:[
+  {text:'15GB free storage fills up fast with photos/documents — Google pushes Google One subscription aggressively.',sources:['Reddit','Meta','X']},
+  {text:'Shared drive permissions are confusing; accidental access or missing access happens constantly in teams.',sources:['Reddit','LinkedIn']},
+  {text:'Offline mode is limited and unreliable — some file types simply don\'t work without connection.',sources:['Reddit','X']},
+  {text:'No smart file organization AI — files pile up with no auto-categorization or deduplication.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'Build a file storage app with 50GB free, AI-powered auto-organization, bulletproof offline access, and crystal-clear permission controls. Target small businesses and creators who hate hunting for files. Position as "the organized alternative to Google Drive chaos."'
+},
+{id:'dropbox',name:'Dropbox',cat:'File Storage',roi:'$8.4B',users:'700M+',founded:'2007',
+ logo:'<svg viewBox="0 0 24 24" fill="#0061FF"><path d="M6 1.807L0 5.629l6 3.822 6-3.822L6 1.807zM18 1.807l-6 3.822 6 3.822 6-3.822-6-3.822zM0 13.274l6 3.822 6-3.822-6-3.823-6 3.823zM18 9.451l-6 3.823 6 3.822 6-3.822-6-3.823zM6 18.371l6 3.822 6-3.822-6-3.823-6 3.823z"/></svg>',
+ flaws:[
+  {text:'Free tier dropped to 2GB only (from 18GB years ago) — basically forces paid plan immediately for real use.',sources:['Reddit','X','Meta']},
+  {text:'Desktop sync client causes constant conflicts — "conflicted copy" files multiply, folder structure breaks.',sources:['Reddit','LinkedIn']},
+  {text:'Upload speeds throttled on free tier; large files take forever compared to competitors.',sources:['Reddit','X']},
+  {text:'No built-in document editor or viewer — forces users to download files to view/edit, slowing workflows.',sources:['Reddit','LinkedIn']}
+ ],
+ opportunity:'Dropbox pioneered cloud storage but got complacent. Build a sync-first storage app with 25GB+ free, instant conflict resolution UI, fast upload speeds regardless of tier, and built-in doc/image preview. Target freelancers and small teams frustrated by Dropbox\'s degraded free tier.'
+}
+];
+
+/* ═══════════ SIDEBAR RENDER ═══════════ */
+const sidebar=document.getElementById('sidebar');
+const panel=document.getElementById('panel');
+
+apps.forEach((app,i)=>{
+  const rank=i+1;
+  // Diamond motif: 1-7 white, 8-14 gray, 15-20 black
+  const rankClass=rank<=7?'rank-white':rank<=14?'rank-gray':'rank-black';
+  const btn=document.createElement('button');
+  btn.className='menu-btn'+(i===0?' active':'');
+  btn.setAttribute('data-idx',i);
+  btn.innerHTML=`
+    <span class="btn-rank ${rankClass}">#${rank}</span>
+    <span class="btn-icon">${app.logo}</span>
+    <span class="btn-name">${app.name}</span>
+    <span class="btn-cat">${app.cat}</span>
+  `;
+  btn.addEventListener('click',()=>selectApp(i));
+  sidebar.appendChild(btn);
+});
+
+/* ═══════════ PANEL RENDER ═══════════ */
+function selectApp(idx){
+  document.querySelectorAll('.menu-btn').forEach((b,i)=>{
+    b.classList.toggle('active',i===idx);
+  });
+  renderPanel(apps[idx],idx+1);
+}
+
+function renderPanel(app,rank){
+  // Diamond value color: white / gray / dim
+  const valColor=rank<=7?'white':rank<=14?'gray':'dim';
+  panel.innerHTML=`
+    <div class="panel-content">
+      <!-- Hero -->
+      <div class="app-hero">
+        <div class="app-logo-wrap">${app.logo}</div>
+        <div class="app-hero-text">
+          <h2>${app.name}</h2>
+          <div class="app-meta">Category: ${app.cat}&nbsp;&nbsp;·&nbsp;&nbsp;Founded: ${app.founded}&nbsp;&nbsp;·&nbsp;&nbsp;Users: ${app.users}</div>
+        </div>
+      </div>
+
+      <!-- ROI strip -->
+      <div class="roi-strip">
+        <div class="roi-card">
+          <div class="roi-label">Rank</div>
+          <div class="roi-val ${valColor}">#${rank}</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-label">Market Val / ROI</div>
+          <div class="roi-val ${valColor}">${app.roi}</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-label">Active Users</div>
+          <div class="roi-val ${valColor}">${app.users}</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-label">Complaint Volume</div>
+          <div class="roi-val ${valColor}">${app.flaws.length} Key Issues</div>
+        </div>
+      </div>
+
+      <!-- Flaws -->
+      <div class="section-title">Reported Flaws & User Complaints</div>
+      <ul class="complaint-list">
+        ${app.flaws.map(f=>`
+          <li class="complaint-item">
+            <div class="c-icon">
+              <svg viewBox="0 0 12 12" fill="none" stroke="#8a8a96" stroke-width="2"><circle cx="6" cy="6" r="4"/><line x1="6" y1="4" x2="6" y2="7"/><circle cx="6" cy="8.5" r="0.5" fill="#8a8a96"/></svg>
+            </div>
+            <div>
+              <div class="c-text">${f.text}</div>
+              <div class="c-source">${f.sources.map(s=>`<span>${s}</span>`).join('')}</div>
+            </div>
+          </li>
+        `).join('')}
+      </ul>
+
+      <!-- Opportunity -->
+      <div class="section-title">Startup Exploitation Opportunity</div>
+      <div class="opportunity-box">
+        <div class="opp-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+          Market Gap Identified
+        </div>
+        <div class="opp-desc">${app.opportunity}</div>
+        <div class="opp-tags">
+          <span class="opp-tag">High ROI</span>
+          <span class="opp-tag">Validated Pain</span>
+          <span class="opp-tag">Public Complaints</span>
+          <span class="opp-tag">Blue Ocean</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Init
+renderPanel(apps[0],1);
+</script>
+</body>
+</html>
